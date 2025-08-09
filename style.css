@@ -1,175 +1,194 @@
 
-/* General Reset */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
+/* סטייל כללי לדוגמה – אפשר להשמיט אם כבר יש לך עיצוב */
 body {
-    font-family: 'Poppins', sans-serif;
-    background-color: #0e1c0f;
-    color: #ffffff;
-    line-height: 1.6;
+  margin: 0;
+  font-family: sans-serif;
+}
+/* LOGO size adjustments */
+.navbar-brand img {
+  object-fit: contain;
+  
 }
 
-a {
-    text-decoration: none;
-    color: inherit;
-}
-
-.container {
-    width: 90%;
-    margin: auto;
-    overflow: hidden;
-}
-
-/* Header */
-header {
-    background-color: #0e1c0f;
-    padding: 20px 0;
-    position: fixed;
-    width: 100%;
-    top: 0;
-    z-index: 999;
-    border-bottom: 1px solid #333;
-}
-
-.logo {
-    display: inline-block;
-    vertical-align: middle;
-    height: 60px;
-}
-
-nav {
-    float: right;
-    margin-top: 15px;
-}
-
-nav a {
-    color: #fff;
-    margin: 0 15px;
-    font-weight: 500;
-    position: relative;
-}
-
-nav a:hover,
-nav a.active {
-    border-bottom: 2px solid #fff;
-}
-
-/* Hero Section */
-.hero {
-    background: url('hero-image.jpg') no-repeat center center/cover;
-    padding: 160px 20px 80px;
-    text-align: center;
-    color: white;
-}
-
-.hero h1 {
-    font-size: 48px;
-    font-weight: 700;
-}
-
-.hero p {
-    font-size: 20px;
-    margin-top: 15px;
-}
-
-.hero .buttons {
-    margin-top: 30px;
-}
-
-.hero .buttons a {
-    display: inline-block;
-    padding: 10px 25px;
-    margin: 10px;
-    border-radius: 5px;
-    font-weight: bold;
-}
-
-.call-btn {
-    background-color: #3cc237;
-    color: white;
-}
-
-.other-btn {
-    border: 2px solid white;
-    color: white;
-}
-
-/* About Section */
 #about {
-    padding: 120px 20px 60px;
-    text-align: center;
-    background-color: #0e1c0f;
+  scroll-margin-top: 100px; /* גובה ה־navbar */
 }
 
-#about h2 {
-    font-size: 36px;
-    margin-bottom: 10px;
+
+
+/* Active link style */
+.navbar .nav-link.active {
+  border-bottom: 2px solid white;
 }
 
-#about p {
-    max-width: 700px;
-    margin: 0 auto;
-    font-size: 18px;
+/* Optional: smooth scroll */
+html {
+  scroll-behavior: smooth;
 }
 
-/* Services Section */
-#services {
-    padding: 60px 20px;
-    background-color: #fff;
-    color: #000;
+
+
+
+/* HERO SECTION */
+.hero {
+  background-image: url('map-background.jpg');
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+  position: relative;
 }
 
-.services-list {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+.hero .overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 1;
 }
 
-.service-item {
-    width: 200px;
-    margin: 10px;
-    text-align: center;
+.hero .container {
+  z-index: 2;
+}
+.about-section {
+  background-color: #103d60; /* גוון ים מהמפה */
+  background-size: cover;
+  background-position: center;
+}
+.reviews-carousel {
+  overflow: hidden;
+  position: relative;
+  height: 100px;
 }
 
-/* Contact Section */
-#contact {
-    padding: 60px 20px;
-    background-color: #ffffff;
-    color: #000000;
+.coverage-section {
+  background-color: #0f2c45; /* כחול עמוק כמו הים */
 }
 
-.contact-form {
-    max-width: 600px;
-    margin: auto;
+.county-card {
+  background-color: #ffffff10;
+  border: 1px solid rgba(255,255,255,0.2);
+  padding: 1rem;
+  border-radius: 10px;
+  color: #ffffff;
+  backdrop-filter: blur(4px);
+  transition: transform 0.3s ease;
+  height: 100%;
 }
 
-.contact-form input,
-.contact-form textarea {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+.county-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
 }
 
-.contact-form button {
-    background-color: #3cc237;
-    color: white;
-    border: none;
-    padding: 10px 25px;
-    border-radius: 5px;
-    font-weight: bold;
+.county-card h4 {
+  border-bottom: 1px solid rgba(255,255,255,0.3);
+  padding-bottom: 0.5rem;
+  margin-bottom: 0.5rem;
 }
 
-/* Footer */
-footer {
-    background-color: #0e1c0f;
-    color: white;
-    text-align: center;
-    padding: 20px 10px;
-    font-size: 14px;
+.county-card ul {
+  padding-left: 1rem;
+  margin: 0;
+  list-style-type: disc;
+}
+
+.county-card li {
+  margin-bottom: 4px;
+  font-size: 0.95rem;
+}
+
+.stacked-images {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.stacked-img {
+  width: 100%;
+  max-width: 350px;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+  transition: transform 0.3s ease;
+}
+
+.stacked-img:hover {
+  transform: scale(1.05);
+}
+
+@media (max-width: 768px) {
+  .stacked-img {
+    max-width: 100%;
+  }
+}
+
+
+/* Services part */
+.services-section {
+  background: linear-gradient(to right, #103d60, #0f2c45);
+}
+
+.service-card {
+  background-color: #ffffff10;
+  border: 1px solid rgba(255,255,255,0.2);
+  padding: 1.5rem;
+  border-radius: 15px;
+  height: 100%;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.service-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+}
+
+.service-icon {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+}
+
+/* contact part */
+.contact-section {
+  background: linear-gradient(to right, #0f2c45, #103d60);
+}
+
+.contact-section a {
+  text-decoration: none;
+}
+
+.social-icons a {
+  color: white;
+  font-size: 1.2rem;
+  margin-right: 10px;
+  transition: color 0.3s ease;
+}
+
+.social-icons a:hover {
+  color: #ffd700;
+}
+
+
+/* גלילה חלקה */
+html { scroll-behavior: smooth; }
+
+/* שלא ייכנס מתחת ל-navbar הדביק */
+.section-anchor { scroll-margin-top: 100px; }
+
+/* הדגשת קישור פעיל בתפריט */
+.navbar .nav-link.active {
+  color: #fff;
+  border-bottom: 2px solid #fff;
+}
+
+/* Hero/Sections — כבר אצלך, נשאר ככה */
+
+
+/* שורה אחרונה */
+footer a {
+  text-decoration: none;
+}
+footer a:hover {
+  text-decoration: underline;
 }
