@@ -25,10 +25,6 @@ body {
 html {
   scroll-behavior: smooth;
 }
-
-
-
-
 /* HERO SECTION */
 .hero {
   background-image: url('map-background.jpg');
@@ -36,6 +32,17 @@ html {
   background-position: center;
   height: 100vh;
   position: relative;
+}
+
+/* התאמה למובייל – גובה קטן יותר + רקע קל */
+@media (max-width: 576px) {
+  .hero {
+    min-height: 70vh; /* לא "כל המסך" כדי למנוע חיתוך */
+    height: auto;
+    padding: 80px 20px 40px; /* ריווח פנימי */
+    background-image: url('map-background-mobile.jpg'); /* גרסה דחוסה */
+    background-position: center top;
+  }
 }
 
 .hero .overlay {
@@ -191,43 +198,4 @@ footer a {
 }
 footer a:hover {
   text-decoration: underline;
-}
-
-
-/* --- Mobile tweaks --- */
-@media (max-width: 576px) {
-  /* Navbar / עוגן גלילה */
-  .section-anchor { scroll-margin-top: 72px; }
-  .navbar-brand img { width: 40px; height: 40px; }
-
-  /* Hero */
-  .hero {
-    min-height: 70vh;   /* להימנע מחיתוכים ע"י סרגלי מובייל */
-    padding: 80px 0 40px;
-    background-position: center top;
-  }
-  .hero h1 { font-size: clamp(28px, 7vw, 42px); line-height: 1.15; }
-  .hero h3 { font-size: clamp(18px, 4.8vw, 24px); }
-  .hero .lead { font-size: clamp(14px, 4vw, 18px); }
-
-  /* כפתורים בחלק העליון – מסך צר = שורה מתחת שורה */
-  .hero .container .btn { width: 100%; }
-
-  /* תמונות ב־About */
-  .stacked-img { max-width: 100%; }
-  
-  /* כרטיסי שירות – ריווח קטן יותר */
-  .service-card { padding: 1rem; }
-  .service-icon { width: 48px; height: 48px; }
-}
-
-/* טבלטים */
-@media (min-width: 577px) and (max-width: 992px) {
-  .hero { min-height: 80vh; }
-  .hero h1 { font-size: clamp(34px, 5.5vw, 56px); }
-}
-
-/* תחליף תמונת רקע כבדה בגרסה קלה למובייל אם יש */
-@media (max-width: 576px) {
-  .hero { background-image: url('map-background-mobile.jpg'); } /* צור קובץ קל יותר */
 }
