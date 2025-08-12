@@ -40,7 +40,7 @@ html {
     min-height: 70vh; /* לא "כל המסך" כדי למנוע חיתוך */
     height: auto;
     padding: 80px 20px 40px; /* ריווח פנימי */
-    background-image: url('map-background-mobile.jpg'); /* גרסה דחוסה */
+    background-image: url('map-background.jpg'); /* גרסה דחוסה */
     background-position: center top;
   }
 }
