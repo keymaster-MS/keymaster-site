@@ -463,7 +463,31 @@
 </script>
 
 <!-- Load the Google Maps JavaScript API (Places Library). Replace YOUR_API_KEY with your key. -->
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCq97SzmTKtPbYSO1PaxCwCzre_mLBa0gA&libraries=places&callback=initReviews" async defer></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places&callback=initReviews" async defer></script>
 
+<script>
+  // Consent-aware loader for Google Maps JS (Places) using your API key
+  (function () {
+    const API_KEY = 'AIzaSyCq97SzmTKtPbYSO1PaxCwCzre_mLBa0gA';
+    function injectMaps() {
+      if (window.__maps_loaded) return;
+      const s = document.createElement('script');
+      s.src = 'https://maps.googleapis.com/maps/api/js?key=' + encodeURIComponent(API_KEY) + '&libraries=places&callback=initReviews';
+      s.async = true; s.defer = true;
+      document.head.appendChild(s);
+      window.__maps_loaded = true;
+    }
+    window.addEventListener('load', function () {
+      if (typeof __tcfapi === 'function') {
+        __tcfapi('addEventListener', 2, function (tcData, ok) {
+          if (!ok) return;
+          if (tcData.eventStatus === 'tcloaded' || tcData.eventStatus === 'useractioncomplete') injectMaps();
+        });
+      } else {
+        setTimeout(injectMaps, 500);
+      }
+    });
+  })();
+</script>
 </body>
 </html>
