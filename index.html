@@ -203,7 +203,7 @@
   <section id="reviews" class="reviews-section py-5 section-anchor">
     <div class="container">
       <h2 class="text-center mb-4" data-i18n="reviews.title">Customer Reviews</h2>
-      <div id="google-reviews-widget"></div>
+      <div class="embedsocial-widget" data-ref="1269f6e23e3132e9aaaa24763dd14af8"></div>
     </div>
   </section>
 
@@ -351,140 +351,28 @@
     });
   </script>
 
-  <!-- ==================== GOOGLE REVIEWS WIDGET – CLIENT (Manual Place ID) ==================== -->
-<script>
-  // Paste your OWN Google Place ID below. No search is performed.
-  // You will ALSO paste your API key in the Maps JS script tag further below.
-  const PLACE_ID = 'ChIJ5RQB6G4WnIgRRJWBbkRNYcI';
+  
 
-  // UI helpers
-  function starHTML(value){
-    const full = Math.floor(value||0);
-    const frac = (value||0) - full;
-    let html = '';
-    for (let i=0;i<5;i++){
-      if (i < full) html += '<i style="opacity:1"></i>';
-      else if (i === full && frac > 0) html += '<i style="opacity:'+ (0.35 + 0.65*frac).toFixed(2) +'"></i>';
-      else html += '<i style="opacity:.25"></i>';
-    }
-    return '<span class="stars" aria-hidden="true">'+html+'</span>';
-  }
-  function esc(s){ return (s||'').replace(/[&<>]/g, c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c])); }
-
-  // Cache so i18n re-render doesn't re-call API
-  let __reviewsData = null;
-
-  function renderReviewsWidget(){
-    const mount = document.getElementById('google-reviews-widget');
-    if (!mount) return;
-    const lang = (document.documentElement.lang || 'en').toLowerCase();
-    const L = {
-      en: { powered: 'Powered by Google', view: 'View on Google', write: 'Write a review' },
-      es: { powered: 'Con la tecnología de Google', view: 'Ver en Google', write: 'Escribir reseña' }
-    }[lang] || { powered: 'Powered by Google', view: 'View on Google', write: 'Write a review' };
-
-    if (!__reviewsData){
-      mount.innerHTML = '<div class="grw"><p>Loading reviews…</p></div>';
-      return;
-    }
-
-    const d = __reviewsData;
-    const writeUrl = 'https://search.google.com/local/writereview?placeid=' + encodeURIComponent(PLACE_ID);
-
-    mount.innerHTML = `
-      <div class="grw">
-        <div class="header">
-          <div>
-            <div class="title">${esc(d.name || 'Google Reviews')}</div>
-            <div class="rating" aria-label="Rating ${d.rating || 0} out of 5">
-              ${starHTML(Number(d.rating||0))} <span>${Number(d.rating||0).toFixed(1)}</span> <span class="count">(${Number(d.total||0)})</span>
-            </div>
-          </div>
-          <div class="powered">${L.powered}</div>
-        </div>
-        <div class="reviews">
-          ${(d.reviews||[]).slice(0,6).map(rv => `
-            <article class="card" aria-label="Review by ${esc(rv.author_name)}">
-              <div class="author">
-                <span class="avatar">${rv.profile_photo_url ? `<img src="${esc(rv.profile_photo_url)}" alt="">` : ''}</span>
-                <div>
-                  <div class="name">${esc(rv.author_name || 'Google User')}</div>
-                  <div class="time">${esc(rv.relative_time || '')}</div>
-                </div>
-              </div>
-              <div class="rating" aria-hidden="true">${starHTML(Number(rv.rating||0))}</div>
-              <div class="text">${esc(rv.text || '')}</div>
-              <div class="actions">
-                ${rv.author_url ? `<a class="btn outline" href="${esc(rv.author_url)}" target="_blank" rel="nofollow noopener">${L.view}</a>` : '<span></span>'}
-                <a class="btn" href="${writeUrl}" target="_blank" rel="nofollow noopener">${L.write}</a>
-              </div>
-            </article>
-          `).join('')}
-        </div>
-      </div>`;
-  }
-  window.renderReviewsWidget = renderReviewsWidget;
-
-  // Google Maps callback – directly fetch details by PLACE_ID (no search)
-  function initReviews(){
-    try {
-      const service = new google.maps.places.PlacesService(document.createElement('div'));
-      service.getDetails({
-        placeId: PLACE_ID,
-        fields: ['name','url','rating','user_ratings_total','reviews']
-      }, (place, status) => {
-        if (status !== google.maps.places.PlacesServiceStatus.OK || !place){
-          console.error('getDetails failed:', status);
-          const mount = document.getElementById('google-reviews-widget');
-          if (mount) mount.innerHTML = '<div class="grw"><p>Unable to load reviews.</p></div>';
-          return;
-        }
-        __reviewsData = {
-          name: place.name,
-          url: place.url,
-          rating: place.rating,
-          total: place.user_ratings_total,
-          reviews: (place.reviews||[]).map(rv => ({
-            author_name: rv.author_name,
-            author_url: rv.author_url,
-            profile_photo_url: rv.profile_photo_url,
-            rating: rv.rating,
-            relative_time: rv.relative_time_description,
-            text: rv.text
-          }))
-        };
-        renderReviewsWidget();
-      });
-    } catch (e){
-      console.error('Maps init error', e);
-    }
-  }
-  window.initReviews = initReviews;
-</script>
-
-<!-- Load the Google Maps JavaScript API (Places Library). Replace YOUR_API_KEY with your key. -->
-<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places&callback=initReviews" async defer></script>
 
 <script>
-  // Consent-aware loader for Google Maps JS (Places) using your API key
-  (function () {
-    const API_KEY = 'AIzaSyCq97SzmTKtPbYSO1PaxCwCzre_mLBa0gA';
-    function injectMaps() {
-      if (window.__maps_loaded) return;
-      const s = document.createElement('script');
-      s.src = 'https://maps.googleapis.com/maps/api/js?key=' + encodeURIComponent(API_KEY) + '&libraries=places&callback=initReviews';
-      s.async = true; s.defer = true;
+  // Consent-aware loader for EmbedSocial (loads only after CMP consent)
+  (function(){
+    function loadEmbedSocial(){
+      if (window.__es_loaded) return;
+      var s = document.createElement('script');
+      s.src = 'https://embedsocial.com/cdn/aht.js';
+      s.defer = true;
       document.head.appendChild(s);
-      window.__maps_loaded = true;
+      window.__es_loaded = true;
     }
-    window.addEventListener('load', function () {
+    window.addEventListener('load', function(){
       if (typeof __tcfapi === 'function') {
         __tcfapi('addEventListener', 2, function (tcData, ok) {
           if (!ok) return;
-          if (tcData.eventStatus === 'tcloaded' || tcData.eventStatus === 'useractioncomplete') injectMaps();
+          if (tcData.eventStatus === 'tcloaded' || tcData.eventStatus === 'useractioncomplete') loadEmbedSocial();
         });
       } else {
-        setTimeout(injectMaps, 500);
+        setTimeout(loadEmbedSocial, 500);
       }
     });
   })();
