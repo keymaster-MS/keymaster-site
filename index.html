@@ -40,11 +40,30 @@
   <link rel="stylesheet" href="style.css" />
 
   <style>
-    /* Small additions for the language switcher */
-    .lang-switch {
-      display:flex; gap:.5rem; align-items:center;
-    }
+    /* Small additions for the language switcher and reviews section */
+    .lang-switch { display:flex; gap:.5rem; align-items:center; }
     .lang-switch .btn { padding:.25rem .5rem; }
+
+    .reviews-section { background:#0b243a; color:#fff; }
+    .grw { color:#fff; font-family:system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; }
+    .grw .header { display:flex; align-items:center; justify-content:space-between; margin-bottom:1rem; }
+    .grw .title { font-size:1.25rem; font-weight:700; }
+    .grw .rating { display:flex; align-items:center; gap:.5rem; font-weight:600; }
+    .grw .stars { display:inline-block; line-height:1; }
+    .grw .stars i { display:inline-block; width:1rem; height:1rem; background:currentColor; -webkit-mask: url('data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\"><path d=\"M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z\"/></svg>') no-repeat center / contain; mask: url('data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\"><path d=\"M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z\"/></svg>') no-repeat center / contain; }
+    .grw .count { opacity:.85; font-size:.95rem; }
+    .grw .powered { font-size:.8rem; opacity:.8; }
+    .grw .reviews { display:grid; grid-template-columns: repeat(auto-fill, minmax(260px,1fr)); gap:1rem; }
+    .grw .card { background:#11273f; border:1px solid rgba(255,255,255,.08); border-radius:.75rem; padding:1rem; height:100%; display:flex; flex-direction:column; }
+    .grw .author { display:flex; align-items:center; gap:.75rem; margin-bottom:.5rem; }
+    .grw .avatar { width:36px; height:36px; border-radius:50%; background:#2b3b51; overflow:hidden; }
+    .grw .avatar img { width:100%; height:100%; object-fit:cover; }
+    .grw .name { font-weight:600; }
+    .grw .time { font-size:.85rem; opacity:.8; }
+    .grw .text { margin-top:.5rem; white-space:pre-wrap; line-height:1.35; }
+    .grw .actions { margin-top:auto; display:flex; justify-content:space-between; align-items:center; gap:.5rem; }
+    .grw .btn { display:inline-block; padding:.5rem .75rem; border-radius:.5rem; background:#1e90ff; color:#fff; text-decoration:none; font-weight:600; }
+    .grw .btn.outline { background:transparent; border:1px solid rgba(255,255,255,.25); }
   </style>
 </head>
 <body>
@@ -64,6 +83,7 @@
           <li class="nav-item"><a class="nav-link active" href="#home" data-i18n="nav.home">Home</a></li>
           <li class="nav-item"><a class="nav-link" href="#services" data-i18n="nav.services">Services</a></li>
           <li class="nav-item"><a class="nav-link" href="#about" data-i18n="nav.about">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="#reviews" data-i18n="nav.reviews">Reviews</a></li>
           <li class="nav-item"><a class="nav-link" href="#contact" data-i18n="nav.contact">Contact Us</a></li>
         </ul>
         <div class="lang-switch ms-lg-3">
@@ -176,82 +196,14 @@
           </div>
         </div>
       </div>
+    </div>
+  </section>
 
-      <!-- Coverage -->
-      <section id="coverage" class="coverage-section py-5 section-anchor">
-        <div class="container text-white">
-          <h2 class="mb-4 text-center" data-i18n="coverage.title">Areas We Serve</h2>
-          <div class="row">
-            <!-- Harrison County -->
-            <div class="col-md-6 col-lg-4 mb-4">
-              <div class="county-card">
-                <h4 data-i18n="coverage.harrison">Harrison County</h4>
-                <ul>
-                  <li>Gulfport</li><li>Biloxi</li><li>Long Beach</li><li>D'Iberville</li><li>St. Martin</li>
-                  <li>Pass Christian</li><li>Latimer</li><li>Lyman</li><li>Saucier</li>
-                </ul>
-              </div>
-            </div>
-            <!-- Jackson County -->
-            <div class="col-md-6 col-lg-4 mb-4">
-              <div class="county-card">
-                <h4 data-i18n="coverage.jackson">Jackson County</h4>
-                <ul>
-                  <li>Pascagoula</li><li>Ocean Springs</li><li>Gautier</li><li>Moss Point</li>
-                  <li>Gulf Hills</li><li>Gulf Park Estates</li><li>Vancleave</li><li>Escatawapa</li>
-                  <li>Wade</li><li>Hurley</li><li>Big Point</li><li>Helena</li>
-                </ul>
-              </div>
-            </div>
-            <!-- Stone County -->
-            <div class="col-md-6 col-lg-4 mb-4">
-              <div class="county-card">
-                <h4 data-i18n="coverage.stone">Stone County</h4>
-                <ul><li>Wiggins</li></ul>
-              </div>
-            </div>
-            <!-- Hancock County -->
-            <div class="col-md-6 col-lg-4 mb-4">
-              <div class="county-card">
-                <h4 data-i18n="coverage.hancock">Hancock County</h4>
-                <ul>
-                  <li>Bay St. Louis</li><li>Diamondhead</li><li>Waveland</li><li>Hide-A-Way Lake</li>
-                  <li>Kiln</li><li>DeLisle</li><li>Pearlington</li><li>Henderson Point</li>
-                </ul>
-              </div>
-            </div>
-            <!-- Pearl River County -->
-            <div class="col-md-6 col-lg-4 mb-4">
-              <div class="county-card">
-                <h4 data-i18n="coverage.pearl">Pearl River County</h4>
-                <ul><li>Picayune</li><li>Poplarville</li><li>Nicholson</li></ul>
-              </div>
-            </div>
-            <!-- George County -->
-            <div class="col-md-6 col-lg-4 mb-4">
-              <div class="county-card">
-                <h4 data-i18n="coverage.george">George County</h4>
-                <ul><li>Lucedale</li><li>Agricola</li><li>McLain</li><li>Leaf</li></ul>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Google Reviews: EmbedSocial (leave) -->
-      <div class="embedsocial-widget" data-ref="1269f6e23e3132e9aaaa24763dd14af8">
-        <a href="https://embedsocial.com/google-reviews-widget/" title="Add Google reviews on a website" target="_blank" class="powered-by-es es-slider">
-          <img src="https://embedsocial.com/cdn/icon/embedsocial-logo.webp" alt="EmbedSocial"> <span> Google reviews widget </span>
-        </a>
-      </div>
-      <script>
-        (function(d, s, id) {
-          var js; if (d.getElementById(id)) {return;}
-          js = d.createElement(s); js.id = id; js.src = "https://embedsocial.com/cdn/aht.js";
-          d.getElementsByTagName("head")[0].appendChild(js);
-        }(document, "script", "EmbedSocialWidgetScript"));
-      </script>
-
+  <!-- REVIEWS (Google Places Custom Widget) -->
+  <section id="reviews" class="reviews-section py-5 section-anchor">
+    <div class="container">
+      <h2 class="text-center mb-4" data-i18n="reviews.title">Customer Reviews</h2>
+      <div id="google-reviews-widget"></div>
     </div>
   </section>
 
@@ -345,50 +297,26 @@
     });
   </script>
 
-  <!-- Elfsight loader after consent (kept) -->
-  <div class="elfsight-app-794950e4-b7b4-494f-8e28-e2ca2d1a65bd" style="min-height:320px"></div>
-  <script>
-    function loadElfsight(){
-      if (window.__elfsight_loaded) return;
-      var s = document.createElement('script');
-      s.src = 'https://static.elfsight.com/platform/platform.js';
-      s.defer = true;
-      s.setAttribute('data-use-service-core','');
-      document.body.appendChild(s);
-      window.__elfsight_loaded = true;
-    }
-    window.addEventListener('load', function () {
-      if (typeof __tcfapi === 'function') {
-        __tcfapi('addEventListener', 2, function (tcData, ok) {
-          if (!ok) return;
-          if (tcData.eventStatus === 'tcloaded' || tcData.eventStatus === 'useractioncomplete') {
-            loadElfsight();
-          }
-        });
-      } else {
-        setTimeout(loadElfsight, 3000);
-      }
-    });
-  </script>
-
   <!-- ==================== I18N: embedded dictionaries + runtime ==================== -->
   <script type="application/json" id="i18n-en">{
-    "nav.home":"Home","nav.services":"Services","nav.about":"About","nav.contact":"Contact Us",
+    "nav.home":"Home","nav.services":"Services","nav.about":"About","nav.reviews":"Reviews","nav.contact":"Contact Us",
     "hero.title":"Service, reliability,<br>professional.","hero.subtitle":"24/7 Emergency Mobile Locksmith Services","hero.lead":"Affordable Price And Professional<br /><strong>Serving Location South Mississippi</strong>","hero.call":"CALL NOW","hero.learn":"Learn About My Services",
     "services.title":"Our Services","services.emergency.title":"Emergency Lockout","services.emergency.desc":"Locked out? We're available 24/7 to get you back inside safely and quickly.","services.keys.title":"Key Replacement","services.keys.desc":"Lost your keys? We cut, replace, and program new keys on the spot.","services.auto.title":"Automotive Locksmith","services.auto.desc":"We unlock cars, program smart keys, and provide full vehicle locksmith services.","services.res.title":"Residential Security","services.res.desc":"Upgrade your home with new locks, rekeying, and smart lock installation.","services.com.title":"Commercial Locksmith","services.com.desc":"Secure your business with access control, rekeying, and master key systems.","services.garage.title":"Garage Door Unlocking","services.garage.desc":"We professionally open and repair locked or malfunctioning Garage Doors.",
     "about.title":"About Keymaster LLC","about.p1":"Keymaster LLC provides fast, reliable locksmith services across South Mississippi. <br>Our team handles everything from emergency lockouts to key replacements with professionalism and affordable pricing.","about.p2":"Professionalism, Experience, and Commitment to Service — With nearly 15 years of experience in the locksmith industry, the Keymaster LLC team is constantly learning and updating our skills to remain at the forefront of technology.<br>We offer a wide range of services to meet all your needs, from quick lockouts to lock replacements and repairs, key duplication, installation of advanced cylinder locks, and electronic lock installations.<br>Our services also include Automotive locksmith services, such as car door unlocking, car key duplication, and smart key programming. We also specialize in commercial locksmith services, providing security solutions for businesses of all types.","about.p3":"Customer satisfaction is our top priority — and we have the reviews to prove it!",
     "coverage.title":"Areas We Serve","coverage.harrison":"Harrison County","coverage.jackson":"Jackson County","coverage.stone":"Stone County","coverage.hancock":"Hancock County","coverage.pearl":"Pearl River County","coverage.george":"George County",
+    "reviews.title":"Customer Reviews",
     "contact.title":"Contact Us","contact.blurb":"Need assistance? We're here 24/7 — call us or send a message.","contact.getintouch":"Get in Touch","contact.phone_label":"Phone:","contact.email_label":"Email:","contact.address_label":"Address:","contact.hours_label":"Hours:",
     "form.name_label":"Name","form.name_ph":"Your Name","form.email_label":"Email","form.email_ph":"Your Email","form.msg_label":"Message","form.msg_ph":"Your Message","form.send":"Send Message",
     "footer.privacy":"Privacy Policy"
   }</script>
 
   <script type="application/json" id="i18n-es">{
-    "nav.home":"Inicio","nav.services":"Servicios","nav.about":"Sobre nosotros","nav.contact":"Contáctanos",
+    "nav.home":"Inicio","nav.services":"Servicios","nav.about":"Sobre nosotros","nav.reviews":"Reseñas","nav.contact":"Contáctanos",
     "hero.title":"Servicio, fiabilidad,<br>profesionalismo.","hero.subtitle":"Cerrajería móvil de emergencia 24/7","hero.lead":"Precio accesible y profesional<br /><strong>Atendemos el sur de Misisipi</strong>","hero.call":"LLAMAR AHORA","hero.learn":"Conoce nuestros servicios",
     "services.title":"Nuestros Servicios","services.emergency.title":"Apertura de emergencia","services.emergency.desc":"¿Te quedaste fuera? Estamos disponibles 24/7 para ayudarte a entrar de forma segura y rápida.","services.keys.title":"Reposición de llaves","services.keys.desc":"¿Perdiste tus llaves? Cortamos, reemplazamos y programamos llaves en el acto.","services.auto.title":"Cerrajería automotriz","services.auto.desc":"Abrimos vehículos, programamos llaves inteligentes y brindamos servicios completos para autos.","services.res.title":"Seguridad residencial","services.res.desc":"Actualiza tu hogar con cerraduras nuevas, cambio de combinación e instalación de cerraduras inteligentes.","services.com.title":"Cerrajería comercial","services.com.desc":"Protege tu negocio con control de accesos, cambio de combinación y sistemas de llaves maestras.","services.garage.title":"Apertura de garaje","services.garage.desc":"Abrimos y reparamos profesionalmente puertas de garaje trabadas o con fallas.",
     "about.title":"Sobre Keymaster LLC","about.p1":"Keymaster LLC ofrece servicios de cerrajería rápidos y confiables en el sur de Misisipi.<br>Nuestro equipo maneja desde aperturas de emergencia hasta reposición de llaves con profesionalismo y precios accesibles.","about.p2":"Profesionalismo, experiencia y compromiso con el servicio — Con casi 15 años en el rubro, el equipo de Keymaster LLC se mantiene actualizado para estar a la vanguardia tecnológica.<br>Ofrecemos una amplia gama de servicios: aperturas, reemplazo y reparación de cerraduras, duplicado de llaves, instalación de cilindros avanzados y cerraduras electrónicas.<br>También realizamos cerrajería automotriz (apertura de puertas, duplicado y programación de llaves inteligentes) y soluciones para comercios de todo tipo.","about.p3":"La satisfacción del cliente es nuestra prioridad — ¡y tenemos reseñas que lo demuestran!",
     "coverage.title":"Zonas de servicio","coverage.harrison":"Condado de Harrison","coverage.jackson":"Condado de Jackson","coverage.stone":"Condado de Stone","coverage.hancock":"Condado de Hancock","coverage.pearl":"Condado de Pearl River","coverage.george":"Condado de George",
+    "reviews.title":"Reseñas de clientes",
     "contact.title":"Contáctanos","contact.blurb":"¿Necesitas ayuda? Estamos 24/7 — llámanos o envíanos un mensaje.","contact.getintouch":"Ponte en contacto","contact.phone_label":"Tel:","contact.email_label":"Email:","contact.address_label":"Dirección:","contact.hours_label":"Horario:",
     "form.name_label":"Nombre","form.name_ph":"Tu nombre","form.email_label":"Correo electrónico","form.email_ph":"Tu correo","form.msg_label":"Mensaje","form.msg_ph":"Tu mensaje","form.send":"Enviar",
     "footer.privacy":"Política de privacidad"
@@ -414,13 +342,128 @@
       });
       document.documentElement.setAttribute('lang', lang);
       localStorage.setItem('lang', lang);
+      // re-render reviews buttons in selected language
+      if (window.renderReviewsWidget) window.renderReviewsWidget();
     }
     document.addEventListener('DOMContentLoaded', () => {
       const saved = localStorage.getItem('lang') || 'en';
       setLanguage(saved);
     });
   </script>
-  <!-- ====================================================================== -->
+
+  <!-- ==================== GOOGLE REVIEWS WIDGET – CLIENT (Manual Place ID) ==================== -->
+<script>
+  // Paste your OWN Google Place ID below. No search is performed.
+  // You will ALSO paste your API key in the Maps JS script tag further below.
+  const PLACE_ID = 'ChIJ5RQB6G4WnIgRRJWBbkRNYcI';
+
+  // UI helpers
+  function starHTML(value){
+    const full = Math.floor(value||0);
+    const frac = (value||0) - full;
+    let html = '';
+    for (let i=0;i<5;i++){
+      if (i < full) html += '<i style="opacity:1"></i>';
+      else if (i === full && frac > 0) html += '<i style="opacity:'+ (0.35 + 0.65*frac).toFixed(2) +'"></i>';
+      else html += '<i style="opacity:.25"></i>';
+    }
+    return '<span class="stars" aria-hidden="true">'+html+'</span>';
+  }
+  function esc(s){ return (s||'').replace(/[&<>]/g, c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c])); }
+
+  // Cache so i18n re-render doesn't re-call API
+  let __reviewsData = null;
+
+  function renderReviewsWidget(){
+    const mount = document.getElementById('google-reviews-widget');
+    if (!mount) return;
+    const lang = (document.documentElement.lang || 'en').toLowerCase();
+    const L = {
+      en: { powered: 'Powered by Google', view: 'View on Google', write: 'Write a review' },
+      es: { powered: 'Con la tecnología de Google', view: 'Ver en Google', write: 'Escribir reseña' }
+    }[lang] || { powered: 'Powered by Google', view: 'View on Google', write: 'Write a review' };
+
+    if (!__reviewsData){
+      mount.innerHTML = '<div class="grw"><p>Loading reviews…</p></div>';
+      return;
+    }
+
+    const d = __reviewsData;
+    const writeUrl = 'https://search.google.com/local/writereview?placeid=' + encodeURIComponent(PLACE_ID);
+
+    mount.innerHTML = `
+      <div class="grw">
+        <div class="header">
+          <div>
+            <div class="title">${esc(d.name || 'Google Reviews')}</div>
+            <div class="rating" aria-label="Rating ${d.rating || 0} out of 5">
+              ${starHTML(Number(d.rating||0))} <span>${Number(d.rating||0).toFixed(1)}</span> <span class="count">(${Number(d.total||0)})</span>
+            </div>
+          </div>
+          <div class="powered">${L.powered}</div>
+        </div>
+        <div class="reviews">
+          ${(d.reviews||[]).slice(0,6).map(rv => `
+            <article class="card" aria-label="Review by ${esc(rv.author_name)}">
+              <div class="author">
+                <span class="avatar">${rv.profile_photo_url ? `<img src="${esc(rv.profile_photo_url)}" alt="">` : ''}</span>
+                <div>
+                  <div class="name">${esc(rv.author_name || 'Google User')}</div>
+                  <div class="time">${esc(rv.relative_time || '')}</div>
+                </div>
+              </div>
+              <div class="rating" aria-hidden="true">${starHTML(Number(rv.rating||0))}</div>
+              <div class="text">${esc(rv.text || '')}</div>
+              <div class="actions">
+                ${rv.author_url ? `<a class="btn outline" href="${esc(rv.author_url)}" target="_blank" rel="nofollow noopener">${L.view}</a>` : '<span></span>'}
+                <a class="btn" href="${writeUrl}" target="_blank" rel="nofollow noopener">${L.write}</a>
+              </div>
+            </article>
+          `).join('')}
+        </div>
+      </div>`;
+  }
+  window.renderReviewsWidget = renderReviewsWidget;
+
+  // Google Maps callback – directly fetch details by PLACE_ID (no search)
+  function initReviews(){
+    try {
+      const service = new google.maps.places.PlacesService(document.createElement('div'));
+      service.getDetails({
+        placeId: PLACE_ID,
+        fields: ['name','url','rating','user_ratings_total','reviews']
+      }, (place, status) => {
+        if (status !== google.maps.places.PlacesServiceStatus.OK || !place){
+          console.error('getDetails failed:', status);
+          const mount = document.getElementById('google-reviews-widget');
+          if (mount) mount.innerHTML = '<div class="grw"><p>Unable to load reviews.</p></div>';
+          return;
+        }
+        __reviewsData = {
+          name: place.name,
+          url: place.url,
+          rating: place.rating,
+          total: place.user_ratings_total,
+          reviews: (place.reviews||[]).map(rv => ({
+            author_name: rv.author_name,
+            author_url: rv.author_url,
+            profile_photo_url: rv.profile_photo_url,
+            rating: rv.rating,
+            relative_time: rv.relative_time_description,
+            text: rv.text
+          }))
+        };
+        renderReviewsWidget();
+      });
+    } catch (e){
+      console.error('Maps init error', e);
+    }
+  }
+  window.initReviews = initReviews;
+</script>
+
+<!-- Load the Google Maps JavaScript API (Places Library). Replace YOUR_API_KEY with your key. -->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCq97SzmTKtPbYSO1PaxCwCzre_mLBa0gA&libraries=places&callback=initReviews" async defer></script>
 
 </body>
 </html>
