@@ -193,21 +193,27 @@
   </section>
 
   <!-- REVIEWS (Google Places Custom Widget) -->
-  <section id="reviews" class="reviews-section py-5 section-anchor">
-    <div class="container">
-      <h2 class="text-center mb-4" data-i18n="reviews.title">Customer Reviews</h2>
+<section id="reviews" class="reviews-section py-5 section-anchor">
+  <div class="container">
+    <h2 class="text-center mb-4" data-i18n="reviews.title">Customer Reviews</h2>
 
-      <!-- Google Reviews widget (5★ only) -->
-      <div id="google-reviews" class="grw" dir="ltr" style="text-align:left">
-        <!-- JS will render here -->
-      </div>
+    <!-- Google Reviews widget (5★ only) -->
+    <div id="google-reviews" class="grw" dir="ltr" style="text-align:left"></div>
 
-      <!-- Fallback: EmbedSocial (only shown if Google has no data) -->
-      <div id="embedsocial-fallback" style="display:none; margin-top:2rem;">
-        <div class="embedsocial-widget" data-ref="1269f6e23e3132e9aaaa24763dd14af8"></div>
-      </div>
+    <!-- Fallback: EmbedSocial (רשות) -->
+    <div id="embedsocial-fallback" style="display:none; margin-top:2rem;">
+      <div class="embedsocial-widget" data-ref="1269f6e23e3132e9aaaa24763dd14af8"></div>
     </div>
-  </section>
+  </div>
+</section>
+
+<!-- CSS + JS של הווידג'ט -->
+<link rel="stylesheet" href="./reviews-widget.css">
+<script src="./reviews-widget.js"></script>
+
+<!-- Maps JS + Places (שים את המפתח שלך) -->
+<script async src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places&callback=initReviews"></script>
+
 
   <!-- CONTACT -->
   <section id="contact" class="contact-section py-5 text-white section-anchor">
