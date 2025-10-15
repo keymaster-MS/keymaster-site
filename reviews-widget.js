@@ -11,39 +11,70 @@
 
 // reviews-widget.js
 // הגדרות
-const PLACE_ID = "ChIJ5RQB6G4WnIgRRJWBbkRNYcI"; // Keymaster LLC Gulfport MS
+// ====== reviews-widget.js (גרסת Place החדשה) ======
+const PLACE_ID = "ChIJ5RQB6G4WnIgRRJWBbkRNYcI"; // Keymaster LLC
 const MAX_SHOW = 10;
 
-// Init callback עבור ה-Maps loader (?callback=initReviews)
-function initReviews() {
-  const service = new google.maps.places.PlacesService(document.createElement('div'));
-  service.getDetails(
-    { placeId: PLACE_ID, fields: ['reviews','url','name'] },
-    (place, status) => {
-      const ok = status === google.maps.places.PlacesServiceStatus.OK;
-      const has = ok && place && Array.isArray(place.reviews) && place.reviews.length;
-      if (!has) return showFallback();
+// נטען ע"י callback מהסקריפט של המפות
+async function initReviews() {
+  try {
+    // טוען את ספריית places בסינטקס החדש
+    const { Place } = await google.maps.importLibrary("places");
 
-      const onlyFive = place.reviews
-        .filter(r => Number(r.rating) === 5)
-        .sort((a,b) => (b.time || 0) - (a.time || 0))
-        .slice(0, MAX_SHOW);
+    // שפת תצוגה (לכיוון RTL וכיתוב יחסי כמו "לפני שבוע")
+    const lang = document.documentElement.getAttribute('lang') || 'en';
 
-      if (!onlyFive.length) return showFallback();
+    // יוצרים אובייקט Place לפי placeId
+    const place = new Place({
+      id: PLACE_ID,
+      requestedLanguage: lang
+    });
 
-      renderReviews(onlyFive, place.url, place.name);
-      // לחשוף לפונקציית שינוי שפה קיימת אצלך
-      window.renderReviewsWidget = () => renderReviews(onlyFive, place.url, place.name);
-    }
-  );
+    // מבקשים את השדות הדרושים (כולל ביקורות)
+    await place.fetchFields({
+      fields: [
+        "id",
+        "displayName",
+        "googleMapsUri",
+        "rating",
+        "userRatingCount",
+        "reviews"
+      ]
+    });
+
+    const allReviews = Array.isArray(place.reviews) ? place.reviews : [];
+    if (!allReviews.length) return showFallback();
+
+    // ב־API החדש שדות הביקורת נראים כך:
+    // {
+    //   rating: number,
+    //   text: { text: string }, originalText: { text: string },
+    //   authorAttribution: { displayName, uri, photoUri },
+    //   relativePublishTimeDescription: string, publishTime: string
+    // }
+
+    const onlyFive = allReviews
+      .filter(r => Number(r.rating) === 5)
+      .sort((a, b) => Date.parse(b.publishTime || 0) - Date.parse(a.publishTime || 0))
+      .slice(0, MAX_SHOW);
+
+    if (!onlyFive.length) return showFallback();
+
+    renderReviewsNew(onlyFive, place.googleMapsUri, place.displayName);
+    // לאפשר רנדר מחדש כשמשנים שפה באתר
+    window.renderReviewsWidget = () => renderReviewsNew(onlyFive, place.googleMapsUri, place.displayName);
+  } catch (err) {
+    console.error("Reviews widget error:", err);
+    showFallback();
+  }
 }
 
-function showFallback(){
+function showFallback() {
   const fb = document.getElementById('embedsocial-fallback');
   if (fb) fb.style.display = 'block';
 }
 
-function renderReviews(reviews, placeUrl, placeName) {
+function renderReviewsNew(reviews, placeUrl, placeName) {
   const wrap = document.getElementById('google-reviews');
   if (!wrap) return;
 
@@ -52,13 +83,11 @@ function renderReviews(reviews, placeUrl, placeName) {
   wrap.dir = isRTL ? 'rtl' : 'ltr';
   wrap.style.textAlign = isRTL ? 'right' : 'left';
 
-  const titleText = (lang === 'es') ? 'Reseñas (5★)' : (lang === 'he') ? 'ביקורות (5★)' : 'Reviews (5★)';
-  const poweredText = (lang === 'es') ? 'Fuente: Google' : (lang === 'he') ? 'מקור: Google' : 'Source: Google';
-  const viewOnGoogleText = (lang === 'es') ? 'Ver en Google' : (lang === 'he') ? 'צפה בגוגל' : 'View on Google';
+  const t = (en, he, es) => (lang === 'he' ? he : lang === 'es' ? es : en);
 
   const header = `
     <div class="header">
-      <div class="title">${titleText}</div>
+      <div class="title">${t('Reviews (5★)','ביקורות (5★)','Reseñas (5★)')}</div>
       <div class="rating">
         <span class="stars" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>
         <span class="count">${reviews.length}</span>
@@ -67,16 +96,16 @@ function renderReviews(reviews, placeUrl, placeName) {
   `;
 
   const cards = reviews.map(r => {
-    const author = r.author_name || 'Google user';
-    const profilePhoto = r.profile_photo_url || '';
-    const when = r.relative_time_description || '';
-    const text = (r.text || '').trim();
-    const link = placeUrl ? `<a class="btn outline" href="${placeUrl}" target="_blank" rel="noopener">${viewOnGoogleText}</a>` : '';
+    const author = r.authorAttribution?.displayName || 'Google user';
+    const photo = r.authorAttribution?.photoUri || '';
+    const when = r.relativePublishTimeDescription || (r.publishTime ? new Date(r.publishTime).toLocaleDateString() : '');
+    const text = (r.text?.text || r.originalText?.text || '').trim();
+    const link = placeUrl ? `<a class="btn outline" href="${placeUrl}" target="_blank" rel="noopener">${t('View on Google','צפה בגוגל','Ver en Google')}</a>` : '';
 
     return `
       <article class="card">
         <div class="author">
-          <div class="avatar">${profilePhoto ? `<img src="${profilePhoto}" alt="${escapeHtml(author)}">` : ''}</div>
+          <div class="avatar">${photo ? `<img src="${photo}" alt="${escapeHtml(author)}">` : ''}</div>
           <div>
             <div class="name">${escapeHtml(author)}</div>
             <div class="time">${escapeHtml(when)}</div>
@@ -85,7 +114,7 @@ function renderReviews(reviews, placeUrl, placeName) {
         </div>
         <div class="text">${escapeHtml(text)}</div>
         <div class="actions">
-          <span class="powered">${poweredText}</span>
+          <span class="powered">${t('Source: Google','מקור: Google','Fuente: Google')}</span>
           ${link}
         </div>
       </article>
@@ -95,7 +124,6 @@ function renderReviews(reviews, placeUrl, placeName) {
   wrap.innerHTML = header + `<div class="reviews">${cards || '<p>—</p>'}</div>`;
 }
 
-// היגיינת HTML בסיסית
 function escapeHtml(s) {
   return String(s)
     .replaceAll('&','&amp;')
