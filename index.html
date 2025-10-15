@@ -8,18 +8,16 @@
   <!-- Consent Manager (leave as-is) -->
   <script type="text/javascript" data-cmp-ab="1" src="https://cdn.consentmanager.net/delivery/autoblocking/982012a7e25f2.js" data-cmp-host="d.delivery.consentmanager.net" data-cmp-cdn="cdn.consentmanager.net" data-cmp-codesrc="16"></script>
 
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=AW-17209872770">
-</script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-17209872770"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'AW-17209872770');
+  </script>
 
-  gtag('config', 'AW-17209872770');
-</script>
-
-  <scriz
+  <!-- GA4 -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-N4KLY0N1P2"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -45,7 +43,7 @@
     .grw .title { font-size:1.25rem; font-weight:700; }
     .grw .rating { display:flex; align-items:center; gap:.5rem; font-weight:600; }
     .grw .stars { display:inline-block; line-height:1; }
-    .grw .stars i { display:inline-block; width:1rem; height:1rem; background:currentColor; -webkit-mask: url('data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\"><path d=\"M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z\"/></svg>') no-repeat center / contain; mask: url('data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\"><path d=\"M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z\"/></svg>') no-repeat center / contain; }
+    .grw .stars i { display:inline-block; width:1rem; height:1rem; background:currentColor; -webkit-mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>') no-repeat center / contain; mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>') no-repeat center / contain; }
     .grw .count { opacity:.85; font-size:.95rem; }
     .grw .powered { font-size:.8rem; opacity:.8; }
     .grw .reviews { display:grid; grid-template-columns: repeat(auto-fill, minmax(260px,1fr)); gap:1rem; }
@@ -196,10 +194,18 @@
 
   <!-- REVIEWS (Google Places Custom Widget) -->
   <section id="reviews" class="reviews-section py-5 section-anchor">
-    <div id="google-reviews"></div>
     <div class="container">
       <h2 class="text-center mb-4" data-i18n="reviews.title">Customer Reviews</h2>
-      <div class="embedsocial-widget" data-ref="1269f6e23e3132e9aaaa24763dd14af8"></div>
+
+      <!-- Google Reviews widget (5★ only) -->
+      <div id="google-reviews" class="grw" dir="ltr" style="text-align:left">
+        <!-- JS will render here -->
+      </div>
+
+      <!-- Fallback: EmbedSocial (only shown if Google has no data) -->
+      <div id="embedsocial-fallback" style="display:none; margin-top:2rem;">
+        <div class="embedsocial-widget" data-ref="1269f6e23e3132e9aaaa24763dd14af8"></div>
+      </div>
     </div>
   </section>
 
@@ -258,7 +264,7 @@
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
-  <!-- Nav active on click/scroll (kept) -->
+  <!-- Nav active on click/scroll -->
   <script>
     // click
     document.querySelectorAll('.nav-link').forEach(link => {
@@ -346,33 +352,108 @@
       setLanguage(saved);
     });
   </script>
- <link rel="stylesheet" href="/assets/reviews-widget.css">
-<div id="google-reviews"></div>
-<script src="/assets/reviews-widget.js"></script>
- 
-<script>
-  // Consent-aware loader for EmbedSocial (loads only after CMP consent)
-  (function(){
-    function loadEmbedSocial(){
-      if (window.__es_loaded) return;
-      var s = document.createElement('script');
-      s.src = 'https://embedsocial.com/cdn/aht.js';
-      s.defer = true;
-      document.head.appendChild(s);
-      window.__es_loaded = true;
-    }
-    window.addEventListener('load', function(){
-      if (typeof __tcfapi === 'function') {
-        __tcfapi('addEventListener', 2, function (tcData, ok) {
-          if (!ok) return;
-          if (tcData.eventStatus === 'tcloaded' || tcData.eventStatus === 'useractioncomplete') loadEmbedSocial();
-        });
-      } else {
-        setTimeout(loadEmbedSocial, 500);
+
+  <!-- Consent-aware loader for EmbedSocial (fallback; loads only after CMP consent) -->
+  <script>
+    (function(){
+      function loadEmbedSocial(){
+        if (window.__es_loaded) return;
+        var s = document.createElement('script');
+        s.src = 'https://embedsocial.com/cdn/aht.js';
+        s.defer = true;
+        document.head.appendChild(s);
+        window.__es_loaded = true;
       }
-    });
-  })();
-</script>
- <script src="./reviews-widget.js"></script>
-</body>
-</html>
+      window.addEventListener('load', function(){
+        if (typeof __tcfapi === 'function') {
+          __tcfapi('addEventListener', 2, function (tcData, ok) {
+            if (!ok) return;
+            if (tcData.eventStatus === 'tcloaded' || tcData.eventStatus === 'useractioncomplete') loadEmbedSocial();
+          });
+        } else {
+          setTimeout(loadEmbedSocial, 500);
+        }
+      });
+    })();
+  </script>
+
+  <!-- Google Places Reviews: 5★ filter -->
+  <script>
+    const PLACE_ID = "ChIJ5RQB6G4WnIgRRJWBbkRNYcI"; // Keymaster LLC
+    const MAX_SHOW = 10;
+
+    // Render function (RTL/LTR aware via site language)
+    function renderReviews(reviews, placeUrl, placeName) {
+      const wrap = document.getElementById('google-reviews');
+      const lang = document.documentElement.getAttribute('lang') || 'en';
+      const isRTL = (lang === 'he' || lang === 'ar');
+      wrap.dir = isRTL ? 'rtl' : 'ltr';
+      wrap.style.textAlign = isRTL ? 'right' : 'left';
+
+      const titleText = (lang === 'es') ? 'Reseñas (5★)' : 'Reviews (5★)';
+      const poweredText = (lang === 'es') ? 'Fuente: Google' : 'Source: Google';
+      const viewOnGoogleText = (lang === 'es') ? 'Ver en Google' : 'View on Google';
+
+      const header = `
+        <div class="header">
+          <div class="title">${titleText}</div>
+          <div class="rating">
+            <span class="stars" aria-hidden="true">${'&nbsp;'.repeat(0)}<i></i><i></i><i></i><i></i><i></i></span>
+            <span class="count">${reviews.length}</span>
+          </div>
+        </div>
+      `;
+
+      const cards = reviews.map(r => {
+        const author = r.author_name || 'Google user';
+        const profilePhoto = r.profile_photo_url || '';
+        const when = r.relative_time_description || '';
+        const text = (r.text || '').trim();
+        const link = placeUrl ? `<a class="btn outline" href="${placeUrl}" target="_blank" rel="noopener">${viewOnGoogleText}</a>` : '';
+
+        return `
+          <article class="card">
+            <div class="author">
+              <div class="avatar">${profilePhoto ? `<img src="${profilePhoto}" alt="${escapeHtml(author)}">` : ''}</div>
+              <div>
+                <div class="name">${escapeHtml(author)}</div>
+                <div class="time">${escapeHtml(when)}</div>
+              </div>
+              <div style="margin-left:auto" aria-label="5 out of 5">★★★★★</div>
+            </div>
+            <div class="text">${escapeHtml(text)}</div>
+            <div class="actions">
+              <span class="powered">${poweredText}</span>
+              ${link}
+            </div>
+          </article>
+        `;
+      }).join('');
+
+      wrap.innerHTML = header + `<div class="reviews">${cards || '<p>—</p>'}</div>`;
+    }
+
+    function escapeHtml(s) {
+      return String(s)
+        .replaceAll('&','&amp;')
+        .replaceAll('<','&lt;')
+        .replaceAll('>','&gt;')
+        .replaceAll('"','&quot;')
+        .replaceAll("'","&#39;");
+    }
+
+    // Google Maps Places init callback
+    function initReviews() {
+      const service = new google.maps.places.PlacesService(document.createElement('div'));
+      service.getDetails(
+        {
+          placeId: PLACE_ID,
+          fields: ['reviews','url','name']
+        },
+        (place, status) => {
+          const ok = status === google.maps.places.PlacesServiceStatus.OK;
+          const has = ok && place && Array.isArray(place.reviews) && place.reviews.length;
+          if (!has) {
+            // show fallback
+            const fb = document.getElementById('embedsocial-fallback');
+            if (fb) fb.style.display = 'bl
