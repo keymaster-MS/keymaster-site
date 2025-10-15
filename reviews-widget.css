@@ -1,14 +1,18 @@
 
 /* FREE Google Reviews Widget – styles (dark) */
-.grw { color:#fff; font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif; }
+/* reviews-widget.css */
+.grw { color:#fff; font-family:system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; }
 .grw .header { display:flex; align-items:center; justify-content:space-between; margin-bottom:1rem; }
-.grw .title { font-size:1.15rem; font-weight:700; }
+.grw .title { font-size:1.25rem; font-weight:700; }
 .grw .rating { display:flex; align-items:center; gap:.5rem; font-weight:600; }
 .grw .stars { display:inline-block; line-height:1; }
-.grw .stars i { display:inline-block; width:1rem; height:1rem; background:currentColor; -webkit-mask:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>') no-repeat center/contain; mask:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>') no-repeat center/contain; }
+.grw .stars i {
+  display:inline-block; width:1rem; height:1rem; background:currentColor;
+  -webkit-mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>') no-repeat center / contain;
+  mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>') no-repeat center / contain;
+}
 .grw .count { opacity:.85; font-size:.95rem; }
-.grw .powered { font-size:.8rem; opacity:.8; }
-.grw .reviews { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:1rem; }
+.grw .reviews { display:grid; grid-template-columns: repeat(auto-fill, minmax(260px,1fr)); gap:1rem; }
 .grw .card { background:#11273f; border:1px solid rgba(255,255,255,.08); border-radius:.75rem; padding:1rem; height:100%; display:flex; flex-direction:column; }
 .grw .author { display:flex; align-items:center; gap:.75rem; margin-bottom:.5rem; }
 .grw .avatar { width:36px; height:36px; border-radius:50%; background:#2b3b51; overflow:hidden; }
@@ -19,6 +23,3 @@
 .grw .actions { margin-top:auto; display:flex; justify-content:space-between; align-items:center; gap:.5rem; }
 .grw .btn { display:inline-block; padding:.5rem .75rem; border-radius:.5rem; background:#1e90ff; color:#fff; text-decoration:none; font-weight:600; }
 .grw .btn.outline { background:transparent; border:1px solid rgba(255,255,255,.25); }
-
-/* Optional: host page section colors */
-.reviews-section { background:#0b243a; color:#fff; }
