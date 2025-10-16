@@ -1,6 +1,7 @@
 
 /* FREE Google Reviews Widget – styles (dark) */
 /* reviews-widget.css */
+/* reviews-widget.css */
 .grw { color:#fff; font-family:system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; }
 .grw .header { display:flex; align-items:center; justify-content:space-between; margin-bottom:1rem; }
 .grw .title { font-size:1.25rem; font-weight:700; }
