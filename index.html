@@ -258,6 +258,52 @@
             <a href="#" target="_blank"><i class="fab fa-yelp"></i></a>
           </div>
         </div>
+<!-- Elfsight: טעינה אחת, תואמת Consent Manager -->
+<div class="elfsight-app-794950e4-b7b4-494f-8e28-e2ca2d1a65bd" style="min-height:320px"></div>
+<script>
+  (function loadWhenConsent(){
+    // אל תטען כפול
+    if (window.__elfsight_hooked) return; 
+    window.__elfsight_hooked = true;
+
+    function loadElfsight(){
+      if (window.__elfsight_loaded) return;
+      var s = document.createElement('script');
+      s.src = 'https://static.elfsight.com/platform/platform.js';
+      s.defer = true;
+      s.setAttribute('data-use-service-core','');
+      s.onload = function(){ console.log('[Elfsight] platform loaded'); };
+      s.onerror = function(e){ console.warn('[Elfsight] failed to load', e); };
+      document.head.appendChild(s);
+      window.__elfsight_loaded = true;
+    }
+
+    // אם יש CMP (consentmanager.net) — נטען אחרי אישור
+    if (typeof __tcfapi === 'function') {
+      console.log('[Elfsight] waiting for CMP consent...');
+      __tcfapi('addEventListener', 2, function (tcData, ok) {
+        if (!ok) return;
+        if (tcData && (tcData.eventStatus === 'tcloaded' || tcData.eventStatus === 'useractioncomplete')) {
+          console.log('[Elfsight] consent ok → load');
+          loadElfsight();
+        }
+      });
+      // רשת ביטחון: אם אין אירוע תוך 6 שניות — נטען בכל זאת
+      setTimeout(function(){
+        if (!window.__elfsight_loaded) {
+          console.log('[Elfsight] fallback load after 6s');
+          loadElfsight();
+        }
+      }, 6000);
+    } else {
+      // אין CMP? טען רגיל אחרי טעינת העמוד
+      window.addEventListener('load', function(){ setTimeout(loadElfsight, 1000); });
+    }
+  })();
+
+  // דיבאגר קטן: כשהאפליקציה מוכנה תופיע הודעה בקונסול
+  window.addEventListener('eapps:ready', function(){ console.log('[Elfsight] app ready'); });
+</script>
 
         <!-- Contact Form -->
         <div class="col-md-6">
@@ -324,32 +370,6 @@
       if (scrollY === 0) {
         const home = document.querySelector('.nav-link[href="#home"]');
         if (home) home.classList.add('active');
-      }
-    });
-  </script>
- <!-- Elfsight Google Reviews | Untitled Google Reviews -->
-<script src="https://elfsightcdn.com/platform.js" async></script>
-<div class="elfsight-app-794950e4-b7b4-494f-8e28-e2ca2d1a65bd" data-elfsight-app-lazy></div>
-      
-    function loadElfsight(){
-      if (window.__elfsight_loaded) return;
-      var s = document.createElement('script');
-      s.src = 'https://static.elfsight.com/platform/platform.js';
-      s.defer = true;
-      s.setAttribute('data-use-service-core','');
-      document.body.appendChild(s);
-      window.__elfsight_loaded = true;
-    }
-    window.addEventListener('load', function () {
-      if (typeof __tcfapi === 'function') {
-        __tcfapi('addEventListener', 2, function (tcData, ok) {
-          if (!ok) return;
-          if (tcData.eventStatus === 'tcloaded' || tcData.eventStatus === 'useractioncomplete') {
-            loadElfsight();
-          }
-        });
-      } else {
-        setTimeout(loadElfsight, 3000);
       }
     });
   </script>
