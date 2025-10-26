@@ -247,27 +247,28 @@
         </div>
 
 
-        <!-- Contact Form -->
-        <div class="col-md-6">
-          <form>
-            <div class="mb-3">
-              <label class="form-label" data-i18n="form.name_label">Name</label>
-              <input type="text" class="form-control" placeholder="Your Name" data-i18n-placeholder="form.name_ph" required>
-            </div>
-            <div class="mb-3">
-              <label class="form-label" data-i18n="form.email_label">Email</label>
-              <input type="email" class="form-control" placeholder="Your Email" data-i18n-placeholder="form.email_ph" required>
-            </div>
-            <div class="mb-3">
-              <label class="form-label" data-i18n="form.msg_label">Message</label>
-              <textarea class="form-control" rows="4" placeholder="Your Message" data-i18n-placeholder="form.msg_ph" required></textarea>
-            </div>
-            <button type="submit" class="btn btn-light w-100" data-i18n="form.send">Send Message</button>
-          </form>
-        </div>
-      </div>
+  <!-- Contact Form -->
+<div class="col-md-6">
+  <form id="contact-form" action="https://formspree.io/f/mzzkzzrl" method="POST">
+    <div class="mb-3">
+      <label class="form-label" data-i18n="form.name_label">Name</label>
+      <input type="text" name="name" class="form-control" placeholder="Your Name" data-i18n-placeholder="form.name_ph" required>
     </div>
-  </section>
+    <div class="mb-3">
+      <label class="form-label" data-i18n="form.email_label">Email</label>
+      <input type="email" name="_replyto" class="form-control" placeholder="Your Email" data-i18n-placeholder="form.email_ph" required>
+    </div>
+    <div class="mb-3">
+      <label class="form-label" data-i18n="form.msg_label">Message</label>
+      <textarea name="message" class="form-control" rows="4" placeholder="Your Message" data-i18n-placeholder="form.msg_ph" required></textarea>
+    </div>
+    <button type="submit" class="btn btn-light w-100" data-i18n="form.send">Send Message</button>
+
+    <!-- הודעה למשתמש -->
+    <div id="form-status" class="text-center mt-3" style="display:none;"></div>
+  </form>
+</div>
+
 
   <footer class="py-4 text-center text-white-50" style="background:#0b243a">
     <small>&copy; 2025 Keymaster LLC 
@@ -367,5 +368,64 @@
   </script>
   <!-- ====================================================================== -->
 
+  <!-- =======mail send============================== -->
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  const form = document.getElementById("contact-form");
+  const status = document.getElementById("form-status");
+
+  // הודעות דו-לשוניות
+  const messages = {
+    en: {
+      sending: "Sending...",
+      success: "Message sent successfully!",
+      error: "Something went wrong. Please try again.",
+      network: "Network error. Please try again later."
+    },
+    es: {
+      sending: "Enviando...",
+      success: "¡Mensaje enviado con éxito!",
+      error: "Ocurrió un error. Por favor, inténtalo de nuevo.",
+      network: "Error de conexión. Inténtalo más tarde."
+    }
+  };
+
+  function t(key) {
+    const lang = localStorage.getItem("lang") || "en";
+    return messages[lang]?.[key] || messages.en[key];
+  }
+
+  form.addEventListener("submit", async function(e) {
+    e.preventDefault();
+    status.style.display = "block";
+    status.className = "text-center mt-3 text-muted";
+    status.textContent = t("sending");
+
+    try {
+      const res = await fetch(form.action, {
+        method: "POST",
+        body: new FormData(form),
+        headers: { "Accept": "application/json" }
+      });
+
+      if (res.ok) {
+        status.className = "text-center mt-3 text-success";
+        status.textContent = t("success");
+        form.reset();
+      } else {
+        const data = await res.json().catch(()=>({}));
+        status.className = "text-center mt-3 text-danger";
+        status.textContent = data?.errors?.[0]?.message || t("error");
+      }
+    } catch (err) {
+      status.className = "text-center mt-3 text-danger";
+      status.textContent = t("network");
+    }
+  });
+});
+</script>
+
+
+        
 </body>
 </html>
