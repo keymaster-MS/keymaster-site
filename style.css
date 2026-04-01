@@ -228,4 +228,14 @@ footer {
 }
 
 }
+.contact-section .btn {
+  min-height: 60px;
+  font-size: 18px;
+  letter-spacing: 0.3px;
+  transition: 0.2s ease;
+}
+
+.contact-section .btn:hover {
+  transform: translateY(-2px);
+}
 
